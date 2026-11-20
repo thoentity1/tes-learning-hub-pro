@@ -1,1 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#081827">
 
+<title>TES Learning Hub Pro | Super Admin</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+<aside class="sidebar">
+
+<a class="brand" href="#">
+<span class="brand-mark">TES</span>
+<span>Learning Hub<small>PRO</small></span>
+</a>
+
+<div class="workspace-label">PLATFORM CONTROL</div>
+
+<nav>
+<a class="nav-item active" href="#overview" data-view="overview">
+<span>▦</span> Overview
+</a>
+
+<a class="nav-item" href="#organisations" data-view="organisations">
+<span>▣</span> Organisations
+</a>
+
+<a class="nav-item" href="#users" data-view="users">
+<span>♙</span> User Management
+</a>
+
+<a class="nav-item" href="#courses" data-view="courses">
+<span>▤</span> Courses
+</a>
+
+<a class="nav-item" href="#reports" data-view="reports">
+<span>▥</span> Reports
+</a>
+</nav>
+
+<div class="sidebar-bottom">
+
+<div class="support-card">
+<strong>TES Platform Administration</strong>
+<p>Manage customer organisations and platform access.</p>
+</div>
+
+<button id="signOutBtn" class="signout-btn" hidden>
+Sign out
+</button>
+
+<div class="sidebar-foot">
+THE ENTITY SOLUTIONS<br>
+© 2026 TES
+</div>
+
+</div>
+</aside>
+
+
+<main class="main">
+
+<header class="topbar">
+
+<div>
+<div class="eyebrow">
+THE ENTITY SOLUTIONS • PLATFORM ADMIN
+</div>
+
+<h1 id="pageTitle">Super Admin Overview</h1>
+</div>
+
+<div class="topbar-right">
+<span class="status-dot"></span>
+<span id="connectionLabel">Not connected</span>
+<div class="avatar" id="avatar">T</div>
+</div>
+
+</header>
+
+
+<!-- LOGIN -->
+
+<section id="loginPanel" class="login-panel">
+
+<div class="login-copy">
+
+<div class="eyebrow">TES LEARNING HUB PRO</div>
+
+<h2>
+One platform.<br>
+<span>Every learning journey.</span>
+</h2>
+
+<p>
+Super Admin access for managing organisations
+and the learning platform.
+</p>
+
+</div>
+
+
+<form id="loginForm" class="login-card">
+
+<h3>Administrator sign in</h3>
+
+<p class="muted">
+Use your TES platform administrator account.
+</p>
+
+<label for="email">Email address</label>
+
+<input
+id="email"
+type="email"
+required
+placeholder="admin@yourcompany.co.za"
+>
+
+<label for="password">Password</label>
+
+<input
+id="password"
+type="password"
+required
+placeholder="Password"
+>
+
+<button class="primary-btn" type="submit">
+Sign in securely
+</button>
+
+<div id="authMessage" class="auth-message"></div>
+
+</form>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboardPanel" hidden>
+
+<div id="overviewView" class="view">
+
+<div class="welcome-row">
+
+<div>
+<p class="muted" id="welcomeText">
+Platform administration
+</p>
+
+<h2>Platform overview</h2>
+</div>
+
+<span class="demo-badge" id="modeBadge">
+LIVE CONNECTION
+</span>
+
+</div>
+
+
+<div class="stats-grid">
+
+<article class="stat-card">
+<div class="stat-top">
+<span>Organisations</span>
+<span class="stat-icon">▣</span>
+</div>
+<strong id="orgCount">—</strong>
+<small>Registered customer organisations</small>
+</article>
+
+
+<article class="stat-card">
+<div class="stat-top">
+<span>Platform status</span>
+<span class="stat-icon">✓</span>
+</div>
+<strong class="status-word">Active</strong>
+<small>Supabase connection established</small>
+</article>
+
+
+<article class="stat-card">
+<div class="stat-top">
+<span>Platform role</span>
+<span class="stat-icon">♙</span>
+</div>
+<strong class="role-word">Super Admin</strong>
+<small>TES platform control</small>
+</article>
+
+
+<article class="stat-card">
+<div class="stat-top">
+<span>Next module</span>
+<span class="stat-icon">▤</span>
+</div>
+<strong class="role-word">Courses</strong>
+<small>Course management to follow</small>
+</article>
+
+</div>
+
+
+<div class="content-grid">
+
+<article class="panel">
+
+<div class="panel-heading">
+<div>
+<h3>Getting started</h3>
+<p class="muted">
+Your platform administration checklist
+</p>
+</div>
+</div>
+
+<ol class="checklist">
+<li>Verify your Super Admin account</li>
+<li>Register your first customer organisation</li>
+<li>Invite the organisation administrator</li>
+<li>Set up courses and learning content</li>
+</ol>
+
+</article>
+
+
+<article class="panel">
+
+<div class="panel-heading">
+<div>
+<h3>Quick actions</h3>
+<p class="muted">Platform administration</p>
+</div>
+</div>
+
+<button class="action-btn" data-go="organisations">
+＋ Register an organisation
+</button>
+
+<p class="muted small-help">
+Organisation records are stored in your
+TES Learning Hub Pro Supabase project.
+</p>
+
+</article>
+
+</div>
+
+</div>
+
+
+<!-- ORGANISATIONS -->
+
+<div id="organisationsView" class="view" hidden>
+
+<div class="welcome-row">
+
+<div>
+<p class="muted">Customer tenant administration</p>
+<h2>Organisations</h2>
+</div>
+
+<button class="primary-btn compact" id="showOrgForm">
+＋ Register organisation
+</button>
+
+</div>
+
+
+<div id="orgFormPanel" class="panel" hidden>
+
+<div class="panel-heading">
+<div>
+<h3>Register a new organisation</h3>
+<p class="muted">
+Create a separate workspace for a customer business.
+</p>
+</div>
+</div>
+
+
+<form id="orgForm" class="org-form">
+
+<div>
+<label for="orgName">Organisation name</label>
+
+<input
+id="orgName"
+required
+maxlength="120"
+placeholder="Example Company (Pty) Ltd"
+>
+</div>
+
+
+<div>
+<label for="orgSlug">Workspace ID</label>
+
+<input
+id="orgSlug"
+required
+pattern="[a-z0-9-]+"
+maxlength="60"
+placeholder="example-company"
+>
+
+<small>
+Lowercase letters, numbers and hyphens only.
+</small>
+</div>
+
+
+<button class="primary-btn compact" type="submit">
+Create organisation
+</button>
+
+<button class="outline-btn" type="button" id="cancelOrgForm">
+Cancel
+</button>
+
+</form>
+
+<div id="orgMessage" class="form-message"></div>
+
+</div>
+
+
+<div class="panel table-panel">
+
+<div class="panel-heading">
+
+<div>
+<h3>Registered organisations</h3>
+<p class="muted">
+Organisations in this TES LMS environment.
+</p>
+</div>
+
+<button class="outline-btn" id="refreshOrgs">
+Refresh
+</button>
+
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>ORGANISATION</th>
+<th>WORKSPACE ID</th>
+<th>STATUS</th>
+<th>CREATED</th>
+</tr>
+</thead>
+
+<tbody id="orgTable">
+
+<tr>
+<td colspan="4">Loading organisations...</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+</div>
+
+</div>
+
+
+<!-- OTHER MODULES -->
+
+<div id="placeholderView" class="view" hidden>
+
+<div class="panel">
+
+<h3 id="placeholderTitle">Coming next</h3>
+
+<p class="muted">
+This module will be added in the next development phase.
+</p>
+
+</div>
+
+</div>
+
+
+<footer class="main-foot">
+
+TES LEARNING HUB PRO
+
+<span>
+Standalone SaaS platform • The Entity Solutions
+</span>
+
+</footer>
+
+</section>
+
+</main>
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
