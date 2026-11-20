@@ -1,7 +1,7 @@
 // TES Learning Hub Pro — Phase 2 Super Admin + organisation registration
 // Use only the Supabase Project URL and anon/publishable key. Never expose service_role.
-const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_PUBLIC_KEY";
+const SUPABASE_URL = "https://xoyxnotdpqufaenqjueh.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_rTpeqREzqqdvXovDck9MxA_tegQEwZZ";
 const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("https://xoyxnotdpqufaenqjueh.supabase.co") && !SUPABASE_ANON_KEY.includes("sb_publishable_rTpeqREzqqdvXovDck9MxA_tegQEwZZ"");
 const sb = configured && window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const $ = id => document.getElementById(id);
