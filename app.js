@@ -2,8 +2,14 @@
 // Use only the Supabase Project URL and anon/publishable key. Never expose service_role.
 const SUPABASE_URL = "https://xoyxnotdpqufaenqjueh.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_rTpeqREzqqdvXovDck9MxA_tegQEwZZ";
-const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("https://xoyxnotdpqufaenqjueh.supabase.co") && !SUPABASE_ANON_KEY.includes("sb_publishable_rTpeqREzqqdvXovDck9MxA_tegQEwZZ"");
-const sb = configured && window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const configured =
+    SUPABASE_URL.startsWith("https://") &&
+    SUPABASE_URL.endsWith(".supabase.co") &&
+    SUPABASE_ANON_KEY.startsWith("sb_publishable_");
+
+const sb = configured && window.supabase
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
 const $ = id => document.getElementById(id);
 let currentUser = null;
 
